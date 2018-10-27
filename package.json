@@ -1,27 +1,22 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "networked-aframe-glitch",
+  "name": "webvr-chess",
   "version": "0.0.1",
-  "description": "What am I about?",
+  "description": "WebVR Chess",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "eslint": "^5.8.0",
     "networked-aframe": "^0.6.0"
   },
-  "engines": {
-    "node": "6.9.x"
-  },
   "repository": {
-    "url": "https://glitch.com/#!/project/networked-aframe"
+    "url": "https://github.com/quinn-madson/webvr-chess.git"
   },
   "license": "MIT",
   "keywords": [
-    "node",
-    "glitch",
-    "express"
+    "chess",
+    "webvr",
+    "aframe"
   ]
 }
