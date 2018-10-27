@@ -18,5 +18,10 @@
     "chess",
     "webvr",
     "aframe"
-  ]
+  ],
+  "standard": {
+    "ignore": [
+      "public/"
+    ]
+  }
 }
