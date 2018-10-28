@@ -8,7 +8,6 @@
     <script src="easyrtc/easyrtc.js"></script>
     <script src="https://unpkg.com/networked-aframe@^0.6.0/dist/networked-aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-    <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@^1.1.0/index.js"></script>
     <script src="/js/spawn-in-circle.component.js"></script>
     <script src="/js/html-imports.min.js"></script>
@@ -33,18 +32,8 @@
       <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
       <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
 
-      <a-entity id="particles" particle-system="preset: snow"></a-entity>
     </a-scene>
 
-    <script>
-      // On mobile remove elements that are resource heavy
-      var isMobile = AFRAME.utils.device.isMobile();
-
-      if (isMobile) {
-        var particles = document.getElementById('particles');
-        particles.parentNode.removeChild(particles);
-      }
-    </script>
     <script src="js/naf-templates-schemas.js"></script>
   </body>
 </html>
