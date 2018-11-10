@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>WebVR Chess</title>
+  <meta name="description" content="WebVR Chess">
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script src="easyrtc/easyrtc.js"></script>
+  <script src="https://unpkg.com/networked-aframe@^0.6.0/dist/networked-aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+  <script src="https://unpkg.com/aframe-environment-component@^1.1.0/index.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+  <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+  <script src="/js/spawn-in-circle.component.js"></script>
+  <script src="/js/html-imports.min.js"></script>
+  <link rel="import" href="templates.html">
+</head>
+
+<body>
+  <a-scene networked-scene="
+      room: basic;
+      debug: true;
+    " environment>
+    <a-assets>
+      <img id="waitfortemplates" />
+      <a-asset-item id="bishop" src="/assets/pieces/bishop.glb">
+        <a-asset-item id="king" src="/assets/pieces/king.glb">
+          <a-asset-item id="knight" src="/assets/pieces/knight.glb">
+            <a-asset-item id="pawn" src="/assets/pieces/pawn.glb">
+              <a-asset-item id="queen" src="/assets/pieces/queen.glb">
+                <a-asset-item id="rook" src="/assets/pieces/rook.glb">
+    </a-assets>
+
+    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="0 1.6 0"
+      spawn-in-circle="radius:3" wasd-controls look-controls>
+      <a-sphere class="head" visible="false" random-color></a-sphere>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+    </a-entity>
+
+    <a-gltf-model src="#king" scale="0.5 0.5 0.5" position="0 0 0" hoverable grabbable stretchable draggable dropppable></a-gltf-model>
+    <a-gltf-model src="#queen" scale="0.5 0.5 0.5" position="0 0 2"></a-gltf-model>
+    <a-gltf-model src="#bishop" scale="0.5 0.5 0.5" position="0 0 4"></a-gltf-model>
+    <a-gltf-model src="#knight" scale="0.5 0.5 0.5" position="0 0 6"></a-gltf-model>
+    <a-gltf-model src="#rook" scale="0.5 0.5 0.5" position="0 0 8"></a-gltf-model>
+    <a-gltf-model src="#pawn" scale="0.5 0.5 0.5" position="0 0 10"></a-gltf-model>
+  </a-scene>
+
+  <script src="js/naf-templates-schemas.js"></script>
+</body>
+
+</html>
