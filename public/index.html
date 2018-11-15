@@ -1,40 +1,110 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-
-    <style>
-        .button {
-            background-color: #4CAF50;
-            /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        .button1 {
-            width: 250px;
-        }
-
-        .Banner {
-            max-width: 300px;
-            margin: 0 auto;
-            text-align: center;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>WebVR Chess</title>
+  <meta name="description" content="WebVR Chess">
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script src="easyrtc/easyrtc.js"></script>
+  <script src="https://unpkg.com/networked-aframe@^0.6.0/dist/networked-aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+  <script src="https://unpkg.com/aframe-environment-component@^1.1.0/index.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+  <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+  <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+  <script src="/js/spawn-in-circle.component.js"></script>
+  <script src="/js/html-imports.min.js"></script>
+  <link rel="import" href="templates.html">
+</head>
 
 <body>
-    <div class="Banner">
-        <h1> WEBVR CHESS </h1>
-        <!-- button -->
-        <a href="vr.html" class="button button1">Play</a><br>
-    </div>
+  <a-scene 
+    stats
+    networked-scene="room: basic; debug: true;" 
+    environment="preset: forest;"
+    physics="friction:0.001; restitution: 0.3;iterations: 30; debug: true;">
+    <a-assets>
+      <img id="waitfortemplates" />
+      <a-asset-item id="leftHand" src="assets/left-hand-new/left-hand.gltf"></a-asset-item>
+      <a-asset-item id="rightHand" src="assets/right-hand-new/right-hand.gltf"></a-asset-item>
+      <a-asset-item id="bishop" src="/assets/pieces/bishop.glb" />
+      <a-asset-item id="king" src="/assets/pieces/king.glb" />
+      <a-asset-item id="knight" src="/assets/pieces/knight.glb" />
+      <a-asset-item id="pawn" src="/assets/pieces/pawn.glb" />
+      <a-asset-item id="queen" src="/assets/pieces/queen.glb" />
+      <a-asset-item id="rook" src="/assets/pieces/rook.glb" />
+      <a-mixin id="touch" 
+        physics-collider 
+        phase-shift 
+        collision-filter="collisionForces: false"
+        static-body="shape: sphere; sphereRadius: 0.04" 
+        super-hands=" colliderEvent: collisions;
+                      colliderEventProperty: els;
+                      colliderEndEvent: collisions;
+                      colliderEndEventProperty: clearedEls;">
+    </a-assets>
+
+    <a-entity id="cameraRig" 
+      networked="template:#cameraRig-template; attachTemplateToLocal: false" 
+      position 
+      rotation
+      spawn-in-circle="radius:4"
+    >
+      <a-entity id="player" 
+        networked="template:#avatar-template;attachTemplateToLocal:false;" 
+        camera 
+        position="0 1.6 0"
+        wasd-controls 
+        look-controls
+      >
+        <a-sphere class="head" visible="false" random-color></a-sphere>
+      </a-entity>
+      <a-entity class="right-controller" 
+        mixin="touch point" 
+        position 
+        rotation 
+        teleport-controls="cameraRig: #cameraRig; teleportOrigin: #player; button: trigger;"
+        networked="template:#right-hand-template; attachTemplateToLocal: false" 
+        daydream-controls="hand: right; model: true"
+        gearvr-controls="hand: right; model: true" 
+        oculus-touch-controls="hand: right; model: true" 
+        vive-controls="hand: right; model: true"
+        windows-motion-controls="hand: right; model: true" 
+        oculus-go-controls="hand: right; model: true">
+      </a-entity>
+      <a-entity class="left-controller" 
+        mixin="touch" 
+        position 
+        rotation
+        teleport-controls="cameraRig: #cameraRig; teleportOrigin: #player; button: trigger;"
+        networked="template:#left-hand-template;attachTemplateToLocal: false" 
+        oculus-touch-controls="hand: left; model: true"
+        vive-controls="hand: left; model: true" 
+        windows-motion-controls="hand: left; model: true">
+      </a-entity>
+    </a-entity>
+
+    <a-gltf-model src="#king" scale="0.5 0.5 0.5" position="0 0 0" hoverable grabbable stretchable draggable dropppable dynamic-body></a-gltf-model>
+    <a-gltf-model src="#queen" scale="0.5 0.5 0.5" position="0 0 2"></a-gltf-model>
+    <a-gltf-model src="#bishop" scale="0.5 0.5 0.5" position="0 0 4"></a-gltf-model>
+    <a-gltf-model src="#knight" scale="0.5 0.5 0.5" position="0 0 6"></a-gltf-model>
+    <a-gltf-model src="#rook" scale="0.5 0.5 0.5" position="0 0 8"></a-gltf-model>
+    <a-gltf-model src="#pawn" scale="0.5 0.5 0.5" position="0 0 10"></a-gltf-model>
+
+    <!-- Floor -->
+    <a-entity id="floor"
+      position="0 0 0" 
+      geometry="primitive: plane; width: 10000; height: 10000;" 
+      rotation="-90 0 0" 
+      material="visible:false"
+      static-body>
+    </a-entity>
+  </a-scene>
+
+  <script src="js/naf-templates-schemas.js"></script>
 </body>
 
 </html>
