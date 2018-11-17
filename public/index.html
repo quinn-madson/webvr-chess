@@ -17,6 +17,7 @@
   <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
   <script src="/js/spawn-in-circle.component.js"></script>
   <script src="/js/html-imports.min.js"></script>
+  <script src="/js/chess-board.component.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -30,12 +31,18 @@
       <img id="waitfortemplates" />
       <a-asset-item id="leftHand" src="assets/left-hand-new/left-hand.gltf"></a-asset-item>
       <a-asset-item id="rightHand" src="assets/right-hand-new/right-hand.gltf"></a-asset-item>
-      <a-asset-item id="bishop" src="/assets/pieces/bishop.glb" />
-      <a-asset-item id="king" src="/assets/pieces/king.glb" />
-      <a-asset-item id="knight" src="/assets/pieces/knight.glb" />
-      <a-asset-item id="pawn" src="/assets/pieces/pawn.glb" />
-      <a-asset-item id="queen" src="/assets/pieces/queen.glb" />
-      <a-asset-item id="rook" src="/assets/pieces/rook.glb" />
+      <a-asset-item id="bishop-w" src="/assets/pieces/bishop-w.glb" />
+      <a-asset-item id="king-w" src="/assets/pieces/king-w.glb" />
+      <a-asset-item id="knight-w" src="/assets/pieces/knight-w.glb" />
+      <a-asset-item id="pawn-w" src="/assets/pieces/pawn-w.glb" />
+      <a-asset-item id="queen-w" src="/assets/pieces/queen-w.glb" />
+      <a-asset-item id="rook-w" src="/assets/pieces/rook-w.glb" />
+      <a-asset-item id="bishop-b" src="/assets/pieces/bishop-b.glb" />
+      <a-asset-item id="king-b" src="/assets/pieces/king-b.glb" />
+      <a-asset-item id="knight-b" src="/assets/pieces/knight-b.glb" />
+      <a-asset-item id="pawn-b" src="/assets/pieces/pawn-b.glb" />
+      <a-asset-item id="queen-b" src="/assets/pieces/queen-b.glb" />
+      <a-asset-item id="rook-b" src="/assets/pieces/rook-b.glb" />
       <a-mixin id="touch" 
         physics-collider 
         phase-shift 
@@ -87,12 +94,21 @@
       </a-entity>
     </a-entity>
 
-    <a-gltf-model src="#king" scale="0.5 0.5 0.5" position="0 0 0" hoverable grabbable stretchable draggable dropppable dynamic-body></a-gltf-model>
-    <a-gltf-model src="#queen" scale="0.5 0.5 0.5" position="0 0 2"></a-gltf-model>
-    <a-gltf-model src="#bishop" scale="0.5 0.5 0.5" position="0 0 4"></a-gltf-model>
-    <a-gltf-model src="#knight" scale="0.5 0.5 0.5" position="0 0 6"></a-gltf-model>
-    <a-gltf-model src="#rook" scale="0.5 0.5 0.5" position="0 0 8"></a-gltf-model>
-    <a-gltf-model src="#pawn" scale="0.5 0.5 0.5" position="0 0 10"></a-gltf-model>
+    <a-gltf-model src="#king-w" scale="0.5 0.5 0.5" position="0 0 0" hoverable grabbable stretchable draggable dropppable dynamic-body></a-gltf-model>
+    <a-gltf-model src="#queen-w" scale="0.5 0.5 0.5" position="0 0 2"></a-gltf-model>
+    <a-gltf-model src="#bishop-w" scale="0.5 0.5 0.5" position="0 0 4"></a-gltf-model>
+    <a-gltf-model src="#knight-w" scale="0.5 0.5 0.5" position="0 0 6"></a-gltf-model>
+    <a-gltf-model src="#rook-w" scale="0.5 0.5 0.5" position="0 0 8"></a-gltf-model>
+    <a-gltf-model src="#pawn-w" scale="0.5 0.5 0.5" position="0 0 10"></a-gltf-model>
+
+    <a-gltf-model src="#king-b" scale="0.5 0.5 0.5" position="5 0 0" hoverable grabbable stretchable draggable dropppable dynamic-body></a-gltf-model>
+    <a-gltf-model src="#queen-b" scale="0.5 0.5 0.5" position="5 0 2"></a-gltf-model>
+    <a-gltf-model src="#bishop-b" scale="0.5 0.5 0.5" position="5 0 4"></a-gltf-model>
+    <a-gltf-model src="#knight-b" scale="0.5 0.5 0.5" position="5 0 6"></a-gltf-model>
+    <a-gltf-model src="#rook-b" scale="0.5 0.5 0.5" position="5 0 8"></a-gltf-model>
+    <a-gltf-model src="#pawn-b" scale="0.5 0.5 0.5" position="5 0 10"></a-gltf-model>
+
+    <a-entity chess-board="squareSize: 0.25" position="3 0.5 -4"></a-entity>
 
     <!-- Floor -->
     <a-entity id="floor"
