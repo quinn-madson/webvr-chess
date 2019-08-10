@@ -23,7 +23,7 @@
 
 <body>
   <a-scene 
-    stats
+           stats
     networked-scene="room: basic; debug: true;" 
     environment="preset: forest;"
     physics="friction:0.001; restitution: 0.3;iterations: 30; debug: true;">
@@ -52,7 +52,8 @@
                       colliderEventProperty: els;
                       colliderEndEvent: collisions;
                       colliderEndEventProperty: clearedEls;">
-    </a-assets>
+      </a-mixin>
+      </a-assets>
 
     <a-entity id="cameraRig" 
       networked="template:#cameraRig-template; attachTemplateToLocal: false" 
